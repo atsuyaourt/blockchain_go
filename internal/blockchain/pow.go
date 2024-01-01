@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"math"
 	"math/big"
-
-	"github.com/atsuyaourt/blockchain/internal/utils"
 )
 
 const targetBits = 24
@@ -35,9 +33,9 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 		[][]byte{
 			pow.block.PrevBlockHash,
 			pow.block.HashTransaction(),
-			utils.IntToHex(pow.block.Timestamp),
-			utils.IntToHex(int64(targetBits)),
-			utils.IntToHex(int64(nonce)),
+			IntToHex(pow.block.Timestamp),
+			IntToHex(int64(targetBits)),
+			IntToHex(int64(nonce)),
 		},
 		[]byte{},
 	)
