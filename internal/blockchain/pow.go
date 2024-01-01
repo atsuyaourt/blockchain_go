@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"math"
 	"math/big"
-
-	"github.com/atsuyaourt/blockchain/internal/utils"
 )
 
 const targetBits = 24
@@ -34,10 +32,10 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	return bytes.Join(
 		[][]byte{
 			pow.block.PrevBlockHash,
-			pow.block.Data,
-			utils.IntToHex(pow.block.Timestamp),
-			utils.IntToHex(int64(targetBits)),
-			utils.IntToHex(int64(nonce)),
+			pow.block.HashTransaction(),
+			IntToHex(pow.block.Timestamp),
+			IntToHex(int64(targetBits)),
+			IntToHex(int64(nonce)),
 		},
 		[]byte{},
 	)
@@ -49,7 +47,7 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 	var hash [32]byte
 	nonce := 0
 
-	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
+	fmt.Print("Mining the block")
 	for nonce < maxNonce {
 		data := pow.prepareData(nonce)
 		hash = sha256.Sum256(data)
