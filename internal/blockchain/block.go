@@ -2,10 +2,11 @@ package blockchain
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"encoding/gob"
 	"log"
 	"time"
+
+	"github.com/atsuyaourt/blockchain/internal/merkle"
 )
 
 // Block represents a block in the blockchain
@@ -35,16 +36,15 @@ func NewGenesisBlock(coinbase *Transaction) *Block {
 }
 
 // HashTransactions returns a hash of the transactions in the block
-func (b *Block) HashTransaction() []byte {
-	var txHashes [][]byte
-	var txHash [32]byte
+func (b *Block) HashTransactions() []byte {
+	var transactions [][]byte
 
 	for _, tx := range b.Transactions {
-		txHashes = append(txHashes, tx.ID)
+		transactions = append(transactions, tx.Serialize())
 	}
-	txHash = sha256.Sum256(bytes.Join(txHashes, []byte{}))
+	mTree := merkle.NewTree(transactions)
 
-	return txHash[:]
+	return mTree.RootNode.Data
 }
 
 // Serialize serializes the block

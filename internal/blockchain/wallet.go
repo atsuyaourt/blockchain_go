@@ -38,9 +38,9 @@ func (w Wallet) GetAddress() []byte {
 	versionedPayload := append([]byte{version}, pubKeyHash...)
 	chksum := checksum(versionedPayload)
 
-	fullPayLoad := append(versionedPayload, chksum...)
+	fullPayload := append(versionedPayload, chksum...)
 
-	return Base58Encode(fullPayLoad)
+	return Base58Encode(fullPayload)
 }
 
 // HashPubKey hashes public key

@@ -8,7 +8,7 @@ import (
 	"math/big"
 )
 
-const targetBits = 24
+const targetBits = 16
 
 var (
 	maxNonce = math.MaxInt64
@@ -32,7 +32,7 @@ func (pow *ProofOfWork) prepareData(nonce int) []byte {
 	return bytes.Join(
 		[][]byte{
 			pow.block.PrevBlockHash,
-			pow.block.HashTransaction(),
+			pow.block.HashTransactions(),
 			IntToHex(pow.block.Timestamp),
 			IntToHex(int64(targetBits)),
 			IntToHex(int64(nonce)),
