@@ -7,8 +7,8 @@ import (
 	"github.com/atsuyaourt/blockchain/internal/blockchain"
 )
 
-func (cli *CLI) printChain() {
-	bc := blockchain.NewBlockchain()
+func (cli *CLI) printChain(nodeID string) {
+	bc := blockchain.NewBlockchain(nodeID)
 	defer bc.DB.Close()
 
 	bci := bc.Iterator()

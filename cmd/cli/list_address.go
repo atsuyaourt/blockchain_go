@@ -7,8 +7,8 @@ import (
 	"github.com/atsuyaourt/blockchain/internal/blockchain"
 )
 
-func (cli *CLI) listAddresses() {
-	wallets, err := blockchain.NewWallets()
+func (cli *CLI) listAddresses(nodeID string) {
+	wallets, err := blockchain.NewWallets(nodeID)
 	if err != nil {
 		log.Panic(err)
 	}

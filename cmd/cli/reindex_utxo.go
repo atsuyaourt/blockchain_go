@@ -6,8 +6,8 @@ import (
 	"github.com/atsuyaourt/blockchain/internal/blockchain"
 )
 
-func (cli *CLI) reindexUTXO() {
-	bc := blockchain.NewBlockchain()
+func (cli *CLI) reindexUTXO(nodeID string) {
+	bc := blockchain.NewBlockchain(nodeID)
 	UTXOSet := blockchain.UTXOSet{Blockchain: bc}
 	UTXOSet.Reindex()
 

@@ -7,11 +7,11 @@ import (
 	"github.com/atsuyaourt/blockchain/internal/blockchain"
 )
 
-func (cli *CLI) getBalance(address string) {
+func (cli *CLI) getBalance(address, nodeID string) {
 	if !blockchain.ValidateAddress(address) {
 		log.Panic("ERROR: Address is not valid")
 	}
-	bc := blockchain.NewBlockchain()
+	bc := blockchain.NewBlockchain(nodeID)
 	UTXOSet := blockchain.UTXOSet{Blockchain: bc}
 	defer bc.DB.Close()
 
